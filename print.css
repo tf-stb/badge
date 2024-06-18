@@ -151,6 +151,9 @@ p#card-holder {
   .badge-barcode img{
     height:57px;
   }
+.hsmall {
+  height: 45px !important;
+}
   h1.badge_holder_name {
     line-height: 1;
     font-size: 23px;

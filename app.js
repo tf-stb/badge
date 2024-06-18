@@ -1,12 +1,12 @@
 /*----------------------
-Créateur de badge v3.0
+Créateur de badge v3.1
 
 Cette application permet de créer des badges pour XDock tablette au format du QR Code et barcode type Code-128.
 Logiciel de code-barres par TEC-IT
 
-v3.0 dernière mise à jour le 07 juillet 2023
+v3.0 dernière mise à jour le 18 juin 2024
 
-Copyright 2022-2023 Hassan ABBAS
+Copyright 2022-2024 Hassan ABBAS
 -----------------------*/
 
 //-----------------------
@@ -15,10 +15,8 @@ Copyright 2022-2023 Hassan ABBAS
 let max = 9;
 let min = 1;
 let task = 0;
-let codeAPI =
-  "https://barcode.tec-it.com/barcode.ashx?code=qrcode&eclevel=M&imagetype=Png&data=";
-let barcodeAPI =
-  "https://barcode.tec-it.com/barcode.ashx?code=&translate-esc=tru&data=";
+let codeAPI = "https://barcode.tec-it.com/barcode.ashx?code=qrcode&eclevel=M&imagetype=Png&data=";
+let barcodeAPI = "https://barcode.tec-it.com/barcode.ashx?code=&translate-esc=tru&data=";
 let working = false;
 //  let googleAPI = "https://chart.googleapis.com/chart?cht=qr&chs=512&chl=
 
@@ -59,17 +57,12 @@ document.getElementById("print").addEventListener("click", function () {
       document.getElementById("print").innerHTML = "Patienter...";
 
       // load image on browser to fix loding issue
-      document.getElementById("temp").innerHTML += `<img  src="${
-        codeAPI + encodeURIComponent(data)
-      }">`;
+      document.getElementById("temp").innerHTML += `<img  src="${codeAPI + encodeURIComponent(data)}">`;
 
       if (data.includes("@xdock.de")) {
         document.getElementById("cards").innerHTML += createBadge(name, data);
       } else {
-        document.getElementById("cards").innerHTML += createPassword(
-          name,
-          data
-        );
+        document.getElementById("cards").innerHTML += createPassword(name, data);
       }
 
       task++;
@@ -96,12 +89,15 @@ document.getElementById("print").addEventListener("click", function () {
 // create Badge
 //-----------------------
 function createBadge(name, compte) {
+  let img_h = "";
+  if (compte.length > 17) img_h = "hsmall";
+
   return `   
     <div class='card'>
     <span class="box up"></span>
     <div class='badge-barcode'>
       <h1 class="badge_holder_name">${name}</h1>
-      <img class="barcode" src="${barcodeAPI + compte}">  
+      <img class="barcode ${img_h}" src="${barcodeAPI + compte}">  
     </div>
     <div class='badge-icon'><img src="./Logo_STEF.gif"></div>
     <span class="box down"></span>
@@ -205,10 +201,7 @@ function autocomplete(inp, arr) {
       // extrct first name
       const arr_name = arr[i].split(" ");
       /*check if the item starts with the same letters as the text field value:*/
-      if (
-        arr_name[0].substr(0, val.length).toUpperCase() == val.toUpperCase() ||
-        arr_name[1].substr(0, val.length).toUpperCase() == val.toUpperCase()
-      ) {
+      if (arr_name[0].substr(0, val.length).toUpperCase() == val.toUpperCase() || arr_name[1].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
         /*create a DIV element for each matching element:*/
         b = document.createElement("DIV");
         /*make the matching letters bold:*/
@@ -294,11 +287,9 @@ var names_list = [
   "CHRISTINE Kevin",
   "DE SOUSA Leandro",
   "DIETRICH Kévin",
-  "DIALLO Boubacar Sidy",
+  "DIALLO Boubacar",
   "EISENBEIS Chris",
   "FERRANDEZ Daniel",
-  "GAUTHIER Ryan",
-  "GREBIL Maxime",
   "HEILIG Patrice",
   "HENRIOT Christophe",
   "HENRIOT Eric",
@@ -309,11 +300,7 @@ var names_list = [
   "MASSON Romain",
   "MOR Taner",
   "MURER Stephan",
-  "NICEVIC Kenan",
-  "REHM Thierry",
-  "RISTORTO Vincent",
   "ROSSE Arnaud",
-  "SCHAAL Benoit",
   "SCHOETTEL Georges",
   "SOULAIMANA Bounouvamini",
   "STRUB Mike",
@@ -326,6 +313,13 @@ var names_list = [
   "ABBAS Hassan",
   "ELKADIKI Saleh",
   "ZAGGAY Mohammed",
+  "Sabrina.H	",
+  "Ali Buyuker",
+  "Benjamin",
+  "Bilal El H",
+  "Dominique.J	",
+  "interstef1 ",
+  "Ludovic ",
   "Pierre ",
   "Lucas ",
   "Henri ",
